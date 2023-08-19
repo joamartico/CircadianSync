@@ -2,7 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 export default function Home() {
-	const [angle, setAngle] = useState(0);
+	const [angle1, setAngle1] = useState(0);
+	const [angle2, setAngle2] = useState(180); // Start with different angles for distinction
+	const [activeBall, setActiveBall] = useState(null);
+
 	const [isDragging, setIsDragging] = useState(false);
 	const circleRef = useRef(null);
 	const radius = 100; // 120 es la mitad del nuevo tamaño del círculo, 40 es el grosor del borde y 20 es la mitad del tamaño de la pelotita
@@ -46,15 +49,16 @@ export default function Home() {
 		}
 	}, [isDragging]);
 
-	const handleBallMouseDown = (e) => {
-    e.preventDefault(); // Add this to prevent any default touch behaviors
-    setIsDragging(true);
-    updatePosition(e.type === "touchstart" ? e.touches[0] : e);
-};
-
+	const handleBallMouseDown = (e, ballId) => {
+		e.preventDefault();
+		setIsDragging(true);
+		setActiveBall(ballId);
+		updatePosition(e.type === "touchstart" ? e.touches[0] : e);
+	};
 
 	const handleMouseUp = () => {
 		setIsDragging(false);
+		setActiveBall(null);
 	};
 
 	const handleMouseMove = (e) => {
@@ -74,25 +78,64 @@ export default function Home() {
 		const deg = (atan * (180 / Math.PI) + 360) % 360;
 		const closestAngle = Math.round(deg / 7.5) * 7.5;
 
-		setAngle(closestAngle);
+		if (activeBall === 1) {
+			setAngle1(closestAngle);
+		} else if (activeBall === 2) {
+			setAngle2(closestAngle);
+		}
 	};
 
-	const x = 100 + radius * Math.cos(angle * (Math.PI / 180)); // Ajusta para el centro de la pelotita
-	const y = 100 + radius * Math.sin(angle * (Math.PI / 180)); // Ajusta para el centro de la pelotita
+	function fromAngleToTime(angle) {
+		let hours = Math.floor(angle / 15);
+		const minutes = Math.floor((angle / 15 - hours) * 60);
+		hours = hours + 6;
+		if (hours > 23) hours = hours - 24;
+
+		return `${hours}:${minutes < 10 ? "0" + minutes : minutes}`;
+	}
 
 	return (
 		<>
 			<ion-content>
 				<Title>Circadian Sync</Title>
 
+				<br/>
+				<p>Bedtime: {fromAngleToTime(angle2)}</p>
+				<p>Wake up: {fromAngleToTime(angle1)}</p>
+				<br/>
+				<p>Hours of sleep: {Math.abs((angle2 - angle1) / 15)}</p>
+
 				<Container>
 					<Circle ref={circleRef}>
 						<Ball
-							top={y}
-							left={x}
-							onMouseDown={handleBallMouseDown}
-							onTouchStart={handleBallMouseDown}
-						/>
+							top={
+								100 +
+								radius * Math.sin(angle2 * (Math.PI / 180))
+							}
+							left={
+								100 +
+								radius * Math.cos(angle2 * (Math.PI / 180))
+							}
+							onMouseDown={(e) => handleBallMouseDown(e, 2)}
+							onTouchStart={(e) => handleBallMouseDown(e, 2)}
+						>
+							🛏️
+						</Ball>
+						<Ball
+							top={
+								100 +
+								radius * Math.sin(angle1 * (Math.PI / 180))
+							}
+							left={
+								100 +
+								radius * Math.cos(angle1 * (Math.PI / 180))
+							}
+							onMouseDown={(e) => handleBallMouseDown(e, 1)}
+							onTouchStart={(e) => handleBallMouseDown(e, 1)}
+						>
+							⏰
+						</Ball>
+
 						<span
 							style={{ position: "absolute", top: 10, left: 75 }}
 						>
@@ -157,13 +200,15 @@ export const Circle = styled.div`
 `;
 
 export const Ball = styled.div`
-	width: 32px; // Aumentamos el tamaño de la pelotita
+	width: 32px;
 	height: 32px;
 	border-radius: 50%;
 	background-color: blue;
 	position: absolute;
-	top: ${(props) =>
-		props.top - 36}px; // Ajustamos la posición al nuevo tamaño
+	top: ${(props) => props.top - 36}px;
 	left: ${(props) => props.left - 36}px;
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
