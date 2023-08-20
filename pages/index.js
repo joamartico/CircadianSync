@@ -248,11 +248,29 @@ export default function Home() {
 							<span
 								style={{
 									position: "absolute",
+									top: 30,
+									right: 30,
+								}}
+							>
+								3
+							</span>
+							<span
+								style={{
+									position: "absolute",
 									right: 10,
 									top: 70,
 								}}
 							>
 								6
+							</span>
+							<span
+								style={{
+									position: "absolute",
+									bottom: 30,
+									right: 30,
+								}}
+							>
+								9
 							</span>
 							<span
 								style={{
@@ -266,11 +284,29 @@ export default function Home() {
 							<span
 								style={{
 									position: "absolute",
+									bottom: 30,
+									left: 30,
+								}}
+							>
+								15
+							</span>
+							<span
+								style={{
+									position: "absolute",
 									left: 10,
 									top: 70,
 								}}
 							>
 								18
+							</span>
+							<span
+								style={{
+									position: "absolute",
+									top: 30,
+									left: 30,
+								}}
+							>
+								21
 							</span>
 						</InnerCircle>
 					</Circle>
@@ -337,6 +373,8 @@ const InnerCircle = styled.div`
 	border-radius: 50%;
 	/* border: 4px solid #000; */
 	background-color: #2c2c2e;
+	font-size: 0.9rem;
+	position: relative;
 `;
 
 export const Ball = styled.div`
