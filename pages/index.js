@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export default function Home() {
 	const [angle1, setAngle1] = useState(0);
-	const [angle2, setAngle2] = useState(180); // Start with different angles for distinction
+	const [angle2, setAngle2] = useState(240); // Start with different angles for distinction
 	const [activeBall, setActiveBall] = useState(null);
 
 	const [isDragging, setIsDragging] = useState(false);
@@ -94,19 +94,79 @@ export default function Home() {
 		return `${hours}:${minutes < 10 ? "0" + minutes : minutes}`;
 	}
 
+	// if(startAngle > 359) startAngle = startAngle - 360;
+	// if(endAngle > 359) endAngle = endAngle - 360;
+	// if(startAngle < 0) startAngle = startAngle + 360;
+	// if(endAngle < 0) endAngle = endAngle + 360;
+
+	let correctAngle1 = angle1 + 90 > 359 ? angle1 - 270 : angle1 + 90;
+	let correctAngle2 = angle2 + 90 > 359 ? angle2 - 270 : angle2 + 90;
+
+	const convertToConic = (angle) => {
+		// Convert from your system to conic-gradient's system.
+		return (450 - angle) % 360;
+	};
+
+	const startAngle = convertToConic(angle1 < angle2 ? angle1 : angle2);
+	const endAngle = convertToConic(angle1 < angle2 ? angle2 : angle1);
+
+	const hourToDegree = (hour) => hour * 15;
+
+	function createGradient(startDegree, endDegree) {
+		// const startDegree = bedTime * 15;
+		// const endDegree = wakeUpTime * 15;
+
+		console.log("startDegree", startDegree);
+		console.log("endDegree", endDegree);
+
+		if (startDegree < endDegree) {
+			return `conic-gradient(
+				#0000 0deg,
+				#0000 ${startDegree - 0.1}deg,
+				blue ${startDegree}deg,
+				blue ${endDegree}deg,
+				#0000 ${endDegree + 0.1}deg
+			)`;
+		} else {
+			return `conic-gradient(
+				#0000 0deg,
+				blue 0.1deg,
+				blue ${endDegree}deg,
+				#0000 ${endDegree + 0.1}deg,
+				#0000 ${startDegree - 0.1}deg,
+				blue ${startDegree}deg
+			)`;
+		}
+	}
+
+	function calculateHoursOfSleep(startDegree, endDegree) {
+		if (startDegree < endDegree) {
+			return Math.abs((endDegree - startDegree) / 15);
+		} else {
+			return Math.abs((360 - startDegree + endDegree) / 15);
+		}
+	}
+
 	return (
 		<>
 			<ion-content>
 				<Title>Circadian Sync</Title>
 
-				<br/>
+				<br />
 				<p>Bedtime: {fromAngleToTime(angle2)}</p>
 				<p>Wake up: {fromAngleToTime(angle1)}</p>
-				<br/>
-				<p>Hours of sleep: {Math.abs((angle2 - angle1) / 15)}</p>
+				<br />
+				<p>Hours of sleep: {calculateHoursOfSleep(angle2, angle1)}</p>
 
 				<Container>
-					<Circle ref={circleRef}>
+					<Circle
+						ref={circleRef}
+						startAngle={angle1 + 90}
+						endAngle={angle2 + 90}
+						bedtime={hourToDegree(1)}
+						wakeup={hourToDegree(7)}
+						gradient={createGradient(correctAngle2, correctAngle1)}
+					>
 						<Ball
 							top={
 								100 +
@@ -121,6 +181,7 @@ export default function Home() {
 						>
 							🛏️
 						</Ball>
+
 						<Ball
 							top={
 								100 +
@@ -134,6 +195,39 @@ export default function Home() {
 							onTouchStart={(e) => handleBallMouseDown(e, 1)}
 						>
 							⏰
+						</Ball>
+
+						<Ball
+							top={
+								100 +
+								radius *
+									Math.sin((angle1 + 150) * (Math.PI / 180))
+							}
+							left={
+								100 +
+								radius *
+									Math.cos((angle1 + 150) * (Math.PI / 180))
+							}
+							color="#fff"
+						>
+							🔥
+						</Ball>
+
+						<Ball
+							top={
+								100 +
+								radius *
+									Math.sin((angle1 - 30) * (Math.PI / 180))
+							}
+							left={
+								100 +
+								radius *
+									Math.cos((angle1 - 30) * (Math.PI / 180))
+							}
+							color="#fff"
+
+						>
+							❄️
 						</Ball>
 
 						<span
@@ -182,11 +276,11 @@ export const Container = styled.div`
 	align-items: center;
 	height: 80%;
 	overflow: hidden;
-	pointer-events: all !important;
+	pointer-events: none !important;
 	/* background-color: #2c2c2e; */
 `;
 export const Circle = styled.div`
-	transform: scale(1.2);
+	transform: scale(1.4);
 	width: 240px; // Aumentamos el tamaño del círculo
 	height: 240px;
 	border-radius: 50%;
@@ -195,8 +289,10 @@ export const Circle = styled.div`
 	box-sizing: border-box;
 	color: #fff;
 	font-weight: 500;
-	//dont allow to select text
 	user-select: none;
+	background: ${({ gradient }) => gradient};
+	pointer-events: all !important;
+	margin-top: -200px;
 `;
 
 export const Ball = styled.div`
@@ -211,4 +307,5 @@ export const Ball = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background: ${({ color }) => color || "blue"};
 `;
