@@ -153,8 +153,12 @@ export default function Home() {
 				<Title>Circadian Sync</Title>
 
 				<br />
-				<p>Bedtime: {fromAngleToTime(angle2)}</p>
-				<p>Wake up: {fromAngleToTime(angle1)}</p>
+				<p>
+					Bedtime: {fromAngleToTime(angle2)} {correctAngle2}deg
+				</p>
+				<p>
+					Wake up: {fromAngleToTime(angle1)} {correctAngle1}deg
+				</p>
 				<br />
 				<p>Hours of sleep: {calculateHoursOfSleep(angle2, angle1)}</p>
 
@@ -165,6 +169,8 @@ export default function Home() {
 						endAngle={angle2 + 90}
 						bedtime={hourToDegree(1)}
 						wakeup={hourToDegree(7)}
+						bedAngle={correctAngle2}
+						wakeAngle={correctAngle1}
 						gradient={createGradient(correctAngle2, correctAngle1)}
 					>
 						<Ball
@@ -225,35 +231,48 @@ export default function Home() {
 									Math.cos((angle1 - 30) * (Math.PI / 180))
 							}
 							color="#fff"
-
 						>
 							❄️
 						</Ball>
 
-						<span
-							style={{ position: "absolute", top: 10, left: 75 }}
-						>
-							0
-						</span>
-						<span
-							style={{ position: "absolute", right: 10, top: 70 }}
-						>
-							6
-						</span>
-						<span
-							style={{
-								position: "absolute",
-								bottom: 10,
-								left: 70,
-							}}
-						>
-							12
-						</span>
-						<span
-							style={{ position: "absolute", left: 10, top: 70 }}
-						>
-							18
-						</span>
+						<InnerCircle>
+							<span
+								style={{
+									position: "absolute",
+									top: 10,
+									left: 75,
+								}}
+							>
+								0
+							</span>
+							<span
+								style={{
+									position: "absolute",
+									right: 10,
+									top: 70,
+								}}
+							>
+								6
+							</span>
+							<span
+								style={{
+									position: "absolute",
+									bottom: 10,
+									left: 70,
+								}}
+							>
+								12
+							</span>
+							<span
+								style={{
+									position: "absolute",
+									left: 10,
+									top: 70,
+								}}
+							>
+								18
+							</span>
+						</InnerCircle>
 					</Circle>
 				</Container>
 			</ion-content>
@@ -284,25 +303,50 @@ export const Circle = styled.div`
 	width: 240px; // Aumentamos el tamaño del círculo
 	height: 240px;
 	border-radius: 50%;
-	border: 40px solid #000; // Hacemos el "camino" más grueso
+	border: 40px solid #0000; // Hacemos el "camino" más grueso
 	position: relative;
 	box-sizing: border-box;
 	color: #fff;
 	font-weight: 500;
 	user-select: none;
-	background: ${({ gradient }) => gradient};
+	background: ${(props) => {
+		if (props.bedAngle > props.wakeAngle) {
+			return `conic-gradient(
+				blue 0% ${props.wakeAngle}deg,
+				#000 ${props.wakeAngle}deg ${props.bedAngle}deg,
+				blue ${props.bedAngle}deg 100%
+			)`;
+		} else {
+			return `conic-gradient(
+				#000 0% ${props.bedAngle}deg,
+				blue ${props.bedAngle}deg ${props.wakeAngle}deg,
+				#000 ${props.wakeAngle}deg 100%
+			)`;
+		}
+	}};
+	background-size: 200% 200%;
+	background-position: center !important;
+	background-repeat: no-repeat;
 	pointer-events: all !important;
 	margin-top: -200px;
 `;
 
+const InnerCircle = styled.div`
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	/* border: 4px solid #000; */
+	background-color: #2c2c2e;
+`;
+
 export const Ball = styled.div`
-	width: 32px;
-	height: 32px;
+	width: 40px;
+	height: 40px;
 	border-radius: 50%;
 	background-color: blue;
 	position: absolute;
-	top: ${(props) => props.top - 36}px;
-	left: ${(props) => props.left - 36}px;
+	top: ${(props) => props.top - 40}px;
+	left: ${(props) => props.left - 40}px;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
