@@ -110,19 +110,20 @@ export default function Home() {
 	return (
 		<>
 			<ion-content>
-				<Title>Circadian Sync</Title>
-
-				<br />
-				<p>
-					Bedtime: {fromAngleToTime(angle2)} 
-					{/* {correctAngle2}deg */}
-				</p>
-				<p>
-					Wake up: {fromAngleToTime(angle1)} 
-					{/* {correctAngle1}deg */}
-				</p>
-				<br />
-				<p>Hours of sleep: {calculateHoursOfSleep(angle2, angle1)}</p>
+				<Header>
+					<Title>Circadian Sync</Title>
+					<p>
+						Bedtime: {fromAngleToTime(angle2)}
+						{/* {correctAngle2}deg */}
+					</p>
+					<p>
+						Wake up: {fromAngleToTime(angle1)}
+						{/* {correctAngle1}deg */}
+					</p>
+					<p>
+						Hours of sleep: {calculateHoursOfSleep(angle2, angle1)}
+					</p>
+				</Header>
 
 				<Container>
 					<Circle
@@ -133,91 +134,13 @@ export default function Home() {
 						<Ball
 							top={
 								120 +
-								radius * Math.sin(angle2 * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius * Math.cos(angle2 * (Math.PI / 180))
-							}
-							onMouseDown={(e) => handleBallMouseDown(e, 2)}
-							onTouchStart={(e) => handleBallMouseDown(e, 2)}
-						>
-							🛏️
-						</Ball>
-
-						<Ball
-							top={
-								120 +
-								radius * Math.sin(angle1 * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius * Math.cos(angle1 * (Math.PI / 180))
-							}
-							onMouseDown={(e) => handleBallMouseDown(e, 1)}
-							onTouchStart={(e) => handleBallMouseDown(e, 1)}
-						>
-							⏰
-						</Ball>
-
-						<Ball
-							top={
-								120 +
 								radius *
-									Math.sin((angle1 + 150) * (Math.PI / 180))
+									Math.sin((angle1 - 15) * (Math.PI / 180))
 							}
 							left={
 								120 +
 								radius *
-									Math.cos((angle1 + 150) * (Math.PI / 180))
-							}
-							color="#fff"
-						>
-							🔥
-						</Ball>
-
-						<Ball
-							top={
-								120 +
-								radius *
-									Math.sin((angle1 - 30) * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius *
-									Math.cos((angle1 - 30) * (Math.PI / 180))
-							}
-							color="#fff"
-						>
-							❄️
-						</Ball>
-
-						<Ball
-							top={
-								120 +
-								radius *
-									Math.sin((angle1 + 18) * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius *
-									Math.cos((angle1 + 18) * (Math.PI / 180))
-							}
-							color="#fff"
-						>
-							☀️
-						</Ball>
-
-						<Ball
-							top={
-								120 +
-								radius *
-									Math.sin((angle1 - 14) * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius *
-									Math.cos((angle1 - 14) * (Math.PI / 180))
+									Math.cos((angle1 - 15) * (Math.PI / 180))
 							}
 							color="#fff"
 						>
@@ -257,19 +180,92 @@ export default function Home() {
 						</Ball>
 
 						<Ball
-							top={
-								120 +
-								radius *
-									Math.sin((180) * (Math.PI / 180))
-							}
+							top={120 + radius * Math.sin(180 * (Math.PI / 180))}
 							left={
-								120 +
-								radius *
-									Math.cos((180) * (Math.PI / 180))
+								120 + radius * Math.cos(180 * (Math.PI / 180))
 							}
 							color="#fff"
 						>
 							🌅
+						</Ball>
+
+						<Ball
+							top={
+								120 +
+								radius *
+									Math.sin((angle1 + 18) * (Math.PI / 180))
+							}
+							left={
+								120 +
+								radius *
+									Math.cos((angle1 + 18) * (Math.PI / 180))
+							}
+							color="#fff"
+						>
+							☀️
+						</Ball>
+
+						<Ball
+							top={
+								120 +
+								radius *
+									Math.sin((angle1 - 45) * (Math.PI / 180))
+							}
+							left={
+								120 +
+								radius *
+									Math.cos((angle1 - 45) * (Math.PI / 180))
+							}
+							// color="#fff" very light blue:
+							color="#e0f1ff"
+						>
+							❄️
+						</Ball>
+						<Ball
+							top={
+								120 +
+								radius *
+									Math.sin((angle1 + 150) * (Math.PI / 180))
+							}
+							left={
+								120 +
+								radius *
+									Math.cos((angle1 + 150) * (Math.PI / 180))
+							}
+							// color="#fff" very light red
+							color="#ffd0d0"
+						>
+							🔥
+						</Ball>
+
+						<Ball
+							top={
+								120 +
+								radius * Math.sin(angle2 * (Math.PI / 180))
+							}
+							left={
+								120 +
+								radius * Math.cos(angle2 * (Math.PI / 180))
+							}
+							onMouseDown={(e) => handleBallMouseDown(e, 2)}
+							onTouchStart={(e) => handleBallMouseDown(e, 2)}
+						>
+							🛏️
+						</Ball>
+
+						<Ball
+							top={
+								120 +
+								radius * Math.sin(angle1 * (Math.PI / 180))
+							}
+							left={
+								120 +
+								radius * Math.cos(angle1 * (Math.PI / 180))
+							}
+							onMouseDown={(e) => handleBallMouseDown(e, 1)}
+							onTouchStart={(e) => handleBallMouseDown(e, 1)}
+						>
+							⏰
 						</Ball>
 
 						<InnerCircle>
@@ -289,13 +285,18 @@ export default function Home() {
 	);
 }
 
+const Header = styled.div`
+	width: 100%;
+	margin-left: 20px;
+	color: white;
+	padding-top: 20px;
+`;
+
 const Title = styled.h1`
 	font-size: 2rem;
 	font-weight: 700;
-	margin-left: 20px;
-	padding-top: 20px;
-	margin-bottom: -20px;
-	color: white;
+	/* padding-top: 20px;
+	margin-bottom: -20px; */
 `;
 
 export const Container = styled.div`
@@ -309,7 +310,7 @@ export const Container = styled.div`
 `;
 
 export const Circle = styled.div`
-	width: 360px; 
+	width: 360px;
 	height: 360px;
 	border-radius: 50%;
 	border: 40px solid #0000; // Hacemos el "camino" más grueso
