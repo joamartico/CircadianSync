@@ -8,7 +8,7 @@ export default function Home() {
 
 	const [isDragging, setIsDragging] = useState(false);
 	const circleRef = useRef(null);
-	const radius = 100; // 120 es la mitad del nuevo tamaño del círculo, 40 es el grosor del borde y 20 es la mitad del tamaño de la pelotita
+	const radius = 160; // 120 es la mitad del nuevo tamaño del círculo, 40 es el grosor del borde y 20 es la mitad del tamaño de la pelotita
 
 	useEffect(() => {
 		const handleTouchMove = (e) => {
@@ -94,50 +94,10 @@ export default function Home() {
 		return `${hours}:${minutes < 10 ? "0" + minutes : minutes}`;
 	}
 
-	// if(startAngle > 359) startAngle = startAngle - 360;
-	// if(endAngle > 359) endAngle = endAngle - 360;
-	// if(startAngle < 0) startAngle = startAngle + 360;
-	// if(endAngle < 0) endAngle = endAngle + 360;
-
 	let correctAngle1 = angle1 + 90 > 359 ? angle1 - 270 : angle1 + 90;
 	let correctAngle2 = angle2 + 90 > 359 ? angle2 - 270 : angle2 + 90;
 
-	const convertToConic = (angle) => {
-		// Convert from your system to conic-gradient's system.
-		return (450 - angle) % 360;
-	};
-
-	const startAngle = convertToConic(angle1 < angle2 ? angle1 : angle2);
-	const endAngle = convertToConic(angle1 < angle2 ? angle2 : angle1);
-
 	const hourToDegree = (hour) => hour * 15;
-
-	function createGradient(startDegree, endDegree) {
-		// const startDegree = bedTime * 15;
-		// const endDegree = wakeUpTime * 15;
-
-		console.log("startDegree", startDegree);
-		console.log("endDegree", endDegree);
-
-		if (startDegree < endDegree) {
-			return `conic-gradient(
-				#0000 0deg,
-				#0000 ${startDegree - 0.1}deg,
-				blue ${startDegree}deg,
-				blue ${endDegree}deg,
-				#0000 ${endDegree + 0.1}deg
-			)`;
-		} else {
-			return `conic-gradient(
-				#0000 0deg,
-				blue 0.1deg,
-				blue ${endDegree}deg,
-				#0000 ${endDegree + 0.1}deg,
-				#0000 ${startDegree - 0.1}deg,
-				blue ${startDegree}deg
-			)`;
-		}
-	}
 
 	function calculateHoursOfSleep(startDegree, endDegree) {
 		if (startDegree < endDegree) {
@@ -154,10 +114,12 @@ export default function Home() {
 
 				<br />
 				<p>
-					Bedtime: {fromAngleToTime(angle2)} {correctAngle2}deg
+					Bedtime: {fromAngleToTime(angle2)} 
+					{/* {correctAngle2}deg */}
 				</p>
 				<p>
-					Wake up: {fromAngleToTime(angle1)} {correctAngle1}deg
+					Wake up: {fromAngleToTime(angle1)} 
+					{/* {correctAngle1}deg */}
 				</p>
 				<br />
 				<p>Hours of sleep: {calculateHoursOfSleep(angle2, angle1)}</p>
@@ -165,21 +127,16 @@ export default function Home() {
 				<Container>
 					<Circle
 						ref={circleRef}
-						startAngle={angle1 + 90}
-						endAngle={angle2 + 90}
-						bedtime={hourToDegree(1)}
-						wakeup={hourToDegree(7)}
 						bedAngle={correctAngle2}
 						wakeAngle={correctAngle1}
-						gradient={createGradient(correctAngle2, correctAngle1)}
 					>
 						<Ball
 							top={
-								100 +
+								120 +
 								radius * Math.sin(angle2 * (Math.PI / 180))
 							}
 							left={
-								100 +
+								120 +
 								radius * Math.cos(angle2 * (Math.PI / 180))
 							}
 							onMouseDown={(e) => handleBallMouseDown(e, 2)}
@@ -190,11 +147,11 @@ export default function Home() {
 
 						<Ball
 							top={
-								100 +
+								120 +
 								radius * Math.sin(angle1 * (Math.PI / 180))
 							}
 							left={
-								100 +
+								120 +
 								radius * Math.cos(angle1 * (Math.PI / 180))
 							}
 							onMouseDown={(e) => handleBallMouseDown(e, 1)}
@@ -205,12 +162,12 @@ export default function Home() {
 
 						<Ball
 							top={
-								100 +
+								120 +
 								radius *
 									Math.sin((angle1 + 150) * (Math.PI / 180))
 							}
 							left={
-								100 +
+								120 +
 								radius *
 									Math.cos((angle1 + 150) * (Math.PI / 180))
 							}
@@ -221,12 +178,12 @@ export default function Home() {
 
 						<Ball
 							top={
-								100 +
+								120 +
 								radius *
 									Math.sin((angle1 - 30) * (Math.PI / 180))
 							}
 							left={
-								100 +
+								120 +
 								radius *
 									Math.cos((angle1 - 30) * (Math.PI / 180))
 							}
@@ -235,79 +192,95 @@ export default function Home() {
 							❄️
 						</Ball>
 
+						<Ball
+							top={
+								120 +
+								radius *
+									Math.sin((angle1 + 18) * (Math.PI / 180))
+							}
+							left={
+								120 +
+								radius *
+									Math.cos((angle1 + 18) * (Math.PI / 180))
+							}
+							color="#fff"
+						>
+							☀️
+						</Ball>
+
+						<Ball
+							top={
+								120 +
+								radius *
+									Math.sin((angle1 - 14) * (Math.PI / 180))
+							}
+							left={
+								120 +
+								radius *
+									Math.cos((angle1 - 14) * (Math.PI / 180))
+							}
+							color="#fff"
+						>
+							💪
+						</Ball>
+
+						<Ball
+							top={
+								120 +
+								radius *
+									Math.sin((angle1 + 75) * (Math.PI / 180))
+							}
+							left={
+								120 +
+								radius *
+									Math.cos((angle1 + 75) * (Math.PI / 180))
+							}
+							color="#fff"
+						>
+							🧠
+						</Ball>
+
+						<Ball
+							top={
+								120 +
+								radius *
+									Math.sin((angle2 - 30) * (Math.PI / 180))
+							}
+							left={
+								120 +
+								radius *
+									Math.cos((angle2 - 30) * (Math.PI / 180))
+							}
+							color="#fff"
+						>
+							🌙
+						</Ball>
+
+						<Ball
+							top={
+								120 +
+								radius *
+									Math.sin((180) * (Math.PI / 180))
+							}
+							left={
+								120 +
+								radius *
+									Math.cos((180) * (Math.PI / 180))
+							}
+							color="#fff"
+						>
+							🌅
+						</Ball>
+
 						<InnerCircle>
-							<span
-								style={{
-									position: "absolute",
-									top: 10,
-									left: 75,
-								}}
-							>
-								0
-							</span>
-							<span
-								style={{
-									position: "absolute",
-									top: 30,
-									right: 30,
-								}}
-							>
-								3
-							</span>
-							<span
-								style={{
-									position: "absolute",
-									right: 10,
-									top: 70,
-								}}
-							>
-								6
-							</span>
-							<span
-								style={{
-									position: "absolute",
-									bottom: 30,
-									right: 30,
-								}}
-							>
-								9
-							</span>
-							<span
-								style={{
-									position: "absolute",
-									bottom: 10,
-									left: 70,
-								}}
-							>
-								12
-							</span>
-							<span
-								style={{
-									position: "absolute",
-									bottom: 30,
-									left: 30,
-								}}
-							>
-								15
-							</span>
-							<span
-								style={{
-									position: "absolute",
-									left: 10,
-									top: 70,
-								}}
-							>
-								18
-							</span>
-							<span
-								style={{
-									position: "absolute",
-									top: 30,
-									left: 30,
-								}}
-							>
-								21
-							</span>
+							<Hour hour={0}></Hour>
+							<Hour hour={3}></Hour>
+							<Hour hour={6}></Hour>
+							<Hour hour={9}></Hour>
+							<Hour hour={12}></Hour>
+							<Hour hour={15}></Hour>
+							<Hour hour={18}></Hour>
+							<Hour hour={21}></Hour>
 						</InnerCircle>
 					</Circle>
 				</Container>
@@ -329,15 +302,15 @@ export const Container = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 80%;
+	/* height: 80%; */
+	height: 480px;
 	overflow: hidden;
 	pointer-events: none !important;
-	/* background-color: #2c2c2e; */
 `;
+
 export const Circle = styled.div`
-	transform: scale(1.4);
-	width: 240px; // Aumentamos el tamaño del círculo
-	height: 240px;
+	width: 360px; 
+	height: 360px;
 	border-radius: 50%;
 	border: 40px solid #0000; // Hacemos el "camino" más grueso
 	position: relative;
@@ -364,17 +337,30 @@ export const Circle = styled.div`
 	background-position: center !important;
 	background-repeat: no-repeat;
 	pointer-events: all !important;
-	margin-top: -200px;
+	&::after {
+		content: "";
+		background: #000;
+		width: 100%;
+		height: 100%;
+		border: 46px solid #000;
+		//center the circle
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		border-radius: 50%;
+		z-index: -1;
+	}
 `;
 
 const InnerCircle = styled.div`
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	/* border: 4px solid #000; */
+	border: 6px solid #000;
 	background-color: #2c2c2e;
 	font-size: 0.9rem;
-	position: relative;
+	position: relative !important;
 `;
 
 export const Ball = styled.div`
@@ -383,11 +369,31 @@ export const Ball = styled.div`
 	border-radius: 50%;
 	background-color: blue;
 	position: absolute;
-	top: ${(props) => props.top - 40}px;
-	left: ${(props) => props.left - 40}px;
+	top: ${(props) => props.top}px;
+	left: ${(props) => props.left}px;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background: ${({ color }) => color || "blue"};
+`;
+
+const Hour = styled.span`
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	width: 60%;
+	height: 60%;
+	transform-origin: center center;
+	transform: rotate(${({ hour }) => hour * 15 + 45}deg);
+	color: white;
+	font-size: 1rem;
+	z-index: 999;
+	&::after {
+		content: "${({ hour }) => hour}";
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform: rotate(${({ hour }) => hour * -15 - 45}deg);
+	}
 `;
