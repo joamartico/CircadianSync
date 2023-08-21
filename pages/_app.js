@@ -40,6 +40,7 @@ function MyApp({ Component, pageProps }) {
 					name="keywords"
 					content="circadian rhythm, boost energy, sleep optimization, productivity, natural alignment, Circadian Sync, wellness, health optimization, sleep improvement, energy enhancement"
 				/>
+				<meta name="google-site-verification" content="3XoSVdS7QLQWutddbE1sJ60XT3mFR-WXrP80V4AharU" />
 
 				{/*  PWA  */}
 				<meta
