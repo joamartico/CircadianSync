@@ -1,10 +1,10 @@
-ion-select {
+/* ion-select {
     background-color: transparent !important;
     color: transparent !important;
     position: absolute;
     top: 0;
     width: 100%;
-}
+} */
 
 html, body, ion-content {
 	pointer-events: none !important;

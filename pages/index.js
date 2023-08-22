@@ -1,14 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import Ball from "../components/Ball";
 
 export default function Home() {
-	const [angle1, setAngle1] = useState(0);
-	const [angle2, setAngle2] = useState(240); // Start with different angles for distinction
+	const [angleWake, setAngleWake] = useState(0);
+	const [angleBed, setAngleBed] = useState(240);
 	const [activeBall, setActiveBall] = useState(null);
 
 	const [isDragging, setIsDragging] = useState(false);
 	const circleRef = useRef(null);
-	const radius = 160; // 120 es la mitad del nuevo tamaño del círculo, 40 es el grosor del borde y 20 es la mitad del tamaño de la pelotita
 
 	useEffect(() => {
 		const handleTouchMove = (e) => {
@@ -79,9 +79,9 @@ export default function Home() {
 		const closestAngle = Math.round(deg / 7.5) * 7.5;
 
 		if (activeBall === 1) {
-			setAngle1(closestAngle);
+			setAngleWake(closestAngle);
 		} else if (activeBall === 2) {
-			setAngle2(closestAngle);
+			setAngleBed(closestAngle);
 		}
 	};
 
@@ -94,8 +94,9 @@ export default function Home() {
 		return `${hours}:${minutes < 10 ? "0" + minutes : minutes}`;
 	}
 
-	let correctAngle1 = angle1 + 90 > 359 ? angle1 - 270 : angle1 + 90;
-	let correctAngle2 = angle2 + 90 > 359 ? angle2 - 270 : angle2 + 90;
+	let correctAngleWake =
+		angleWake + 90 > 359 ? angleWake - 270 : angleWake + 90;
+	let correctAngleBed = angleBed + 90 > 359 ? angleBed - 270 : angleBed + 90;
 
 	const hourToDegree = (hour) => hour * 15;
 
@@ -113,170 +114,189 @@ export default function Home() {
 				<Header>
 					<Title>Circadian Sync</Title>
 					<p>
-						Bedtime: {fromAngleToTime(angle2)}
-						{/* {correctAngle2}deg */}
+						Bedtime: {fromAngleToTime(angleBed)}
+						{/* {correctAngleBed}deg */}
 					</p>
 					<p>
-						Wake up: {fromAngleToTime(angle1)}
-						{/* {correctAngle1}deg */}
+						Wake up: {fromAngleToTime(angleWake)}
+						{/* {correctAngleWake}deg */}
 					</p>
 					<p>
-						Hours of sleep: {calculateHoursOfSleep(angle2, angle1)}
+						Hours of sleep:{" "}
+						{calculateHoursOfSleep(angleBed, angleWake)}
 					</p>
 				</Header>
 
 				<Container>
 					<Circle
 						ref={circleRef}
-						bedAngle={correctAngle2}
-						wakeAngle={correctAngle1}
+						bedAngle={correctAngleBed}
+						wakeAngle={correctAngleWake}
 					>
 						<Ball
-							top={
-								120 +
-								radius *
-									Math.sin((angle1 - 15) * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius *
-									Math.cos((angle1 - 15) * (Math.PI / 180))
-							}
+							angle={angleWake - 15}
 							color="#fff"
-						>
-							💪
-						</Ball>
+							emoji="💪"
+							title="Testosterone and Cortisol peak"
+							description="It's a great period for physical activities like exercising, as testosterone can boost muscle growth and performance. Additionally, cortisol, our primary stress hormone, is highest in the morning, preparing us for the day's challenges."
+						/>
 
 						<Ball
-							top={
-								120 +
-								radius *
-									Math.sin((angle1 + 75) * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius *
-									Math.cos((angle1 + 75) * (Math.PI / 180))
-							}
+							angle={angleWake + 75}
 							color="#fff"
-						>
-							🧠
-						</Ball>
+							emoji="🧠"
+							title="Cognitive peak"
+							description="This is when our cognitive abilities are at their peak. It's the best time for tasks that require deep concentration, problem-solving, or learning. Scientifically, our body temperature increases and so does our alertness and mental sharpness."
+						/>
 
 						<Ball
-							top={
-								120 +
-								radius *
-									Math.sin((angle2 - 30) * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius *
-									Math.cos((angle2 - 30) * (Math.PI / 180))
-							}
+							angle={angleBed - 30}
 							color="#fff"
-						>
-							🌙
-						</Ball>
+							emoji="🌙"
+							title="Melatonin rise"
+							description="Melatonin, the sleep hormone, starts to rise during this period, signaling to the body that it's time to wind down and prepare for rest. Dimming lights and avoiding screens can further enhance this natural process, promoting better sleep."
+						/>
 
 						<Ball
-							top={120 + radius * Math.sin(180 * (Math.PI / 180))}
-							left={
-								120 + radius * Math.cos(180 * (Math.PI / 180))
-							}
+							angle={angleBed + 30}
 							color="#fff"
-						>
-							🌅
-						</Ball>
+							emoji="🦴"
+							title="Growth hormone peak"
+							description="Growth hormone is released during this period, promoting tissue repair and muscle growth. It's a great time for recovery and healing. Additionally, our body temperature keeps dropping, signaling to the body that it's time to rest."
+						/>
 
 						<Ball
-							top={
-								120 +
-								radius *
-									Math.sin((angle1 + 18) * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius *
-									Math.cos((angle1 + 18) * (Math.PI / 180))
-							}
+							angle={180}
 							color="#fff"
-						>
-							☀️
-						</Ball>
+							emoji="🌅"
+							title="Sunset"
+							description="Watching the sunset is a natural cue for our body to start transitioning from daytime to nighttime activities. It's an optimal time to begin relaxing routines and reducing exposure to blue light. Cortisol levels also start to drop, making us feel more relaxed."
+						/>
 
 						<Ball
-							top={
-								120 +
-								radius *
-									Math.sin((angle1 - 45) * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius *
-									Math.cos((angle1 - 45) * (Math.PI / 180))
-							}
-							// color="#fff" very light blue:
+							angle={angleWake + 18}
+							color="#fff"
+							emoji="☀️"
+							title="Sunlight"
+							description="Exposure to natural sunlight during this period is key to synchronizing your circadian rhythm, regulating sleep patterns, and enhancing mood. The light of the morning is particularly effective in stimulating the production of serotonin, a hormone that uplifts mood."
+						/>
+
+						<Ball
+							angle={angleWake - 45}
+							// very light blue:
 							color="#e0f1ff"
-						>
-							❄️
-						</Ball>
+							emoji="❄️"
+							title="Lowest body temperature"
+							description="Our body's core temperature drops to its lowest during this time. It's a cue for deep, restorative stages of sleep. Ensuring a cool environment can further optimize sleep quality."
+						/>
+
 						<Ball
-							top={
-								120 +
-								radius *
-									Math.sin((angle1 + 150) * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius *
-									Math.cos((angle1 + 150) * (Math.PI / 180))
-							}
-							// color="#fff" very light red
+							angle={angleWake + 150}
+							// very light red
 							color="#ffd0d0"
-						>
-							🔥
-						</Ball>
+							emoji="🔥"
+							title="Highest body temperature"
+							description="Your body reaches its maximum core temperature, promoting optimal muscle function and flexibility. It's a great time for physical activities or exercises as injury risks are reduced and performance can be enhanced. Additionally, metabolism is relatively high, aiding in efficient digestion."
+						/>
 
 						<Ball
-							top={
-								120 +
-								radius * Math.sin(angle2 * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius * Math.cos(angle2 * (Math.PI / 180))
-							}
-							onMouseDown={(e) => handleBallMouseDown(e, 2)}
-							onTouchStart={(e) => handleBallMouseDown(e, 2)}
-						>
-							🛏️
-						</Ball>
+							angle={angleBed}
+							onDraging={(e) => handleBallMouseDown(e, 2)}
+							emoji="🛏️"
+							color="blue"
+						/>
 
 						<Ball
-							top={
-								120 +
-								radius * Math.sin(angle1 * (Math.PI / 180))
-							}
-							left={
-								120 +
-								radius * Math.cos(angle1 * (Math.PI / 180))
-							}
-							onMouseDown={(e) => handleBallMouseDown(e, 1)}
-							onTouchStart={(e) => handleBallMouseDown(e, 1)}
-						>
-							⏰
-						</Ball>
+							angle={angleWake}
+							onDraging={(e) => handleBallMouseDown(e, 1)}
+							emoji="⏰"
+							color="blue"
+						/>
 
 						<InnerCircle>
-							<Hour hour={0}></Hour>
-							<Hour hour={3}></Hour>
-							<Hour hour={6}></Hour>
-							<Hour hour={9}></Hour>
-							<Hour hour={12}></Hour>
-							<Hour hour={15}></Hour>
-							<Hour hour={18}></Hour>
-							<Hour hour={21}></Hour>
+							<span
+								style={{
+									position: "absolute",
+									right: "50%",
+									transform: "translateX(50%)",
+									top: 25,
+								}}
+							>
+								0
+							</span>
+
+							<span
+								style={{
+									position: "absolute",
+									left: 25,
+									top: "50%",
+									transform: "translateY(-50%)",
+								}}
+							>
+								18
+							</span>
+							<span
+								style={{
+									position: "absolute",
+									right: "75%",
+									bottom: "75%",
+									transform: "translate(-50%, 50%)",
+								}}
+							>
+								21
+							</span>
+							<span
+								style={{
+									position: "absolute",
+									left: "75%",
+									bottom: "75%",
+									transform: "translate(50%, 50%)",
+								}}
+							>
+								3
+							</span>
+							<span
+								style={{
+									position: "absolute",
+									left: "75%",
+									top: "75%",
+									transform: "translate(50%, -50%)",
+								}}
+							>
+								9
+							</span>
+							<span
+								style={{
+									position: "absolute",
+									right: "75%",
+									top: "75%",
+									transform: "translate(-50%, -50%)",
+								}}
+							>
+								15
+							</span>
+
+							<span
+								style={{
+									position: "absolute",
+									top: "50%",
+									transform: "translateY(-50%)",
+									right: 25,
+								}}
+							>
+								6
+							</span>
+
+							<span
+								style={{
+									position: "absolute",
+									right: "50%",
+									transform: "translateX(50%)",
+									bottom: 25,
+								}}
+							>
+								12
+							</span>
 						</InnerCircle>
 					</Circle>
 				</Container>
@@ -295,8 +315,9 @@ const Header = styled.div`
 const Title = styled.h1`
 	font-size: 2rem;
 	font-weight: 700;
-	/* padding-top: 20px;
-	margin-bottom: -20px; */
+	background: linear-gradient(#fdf5bc, #f3ac77); 
+	-webkit-background-clip: text !important; // makes the text itself have the gradient
+	color: transparent !important; // necessary to make the gradient show
 `;
 
 export const Container = styled.div`
@@ -360,23 +381,8 @@ const InnerCircle = styled.div`
 	border-radius: 50%;
 	border: 6px solid #000;
 	background-color: #2c2c2e;
-	font-size: 0.9rem;
+	font-size: 1rem;
 	position: relative !important;
-`;
-
-export const Ball = styled.div`
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	background-color: blue;
-	position: absolute;
-	top: ${(props) => props.top}px;
-	left: ${(props) => props.left}px;
-	cursor: pointer;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: ${({ color }) => color || "blue"};
 `;
 
 const Hour = styled.span`
@@ -390,6 +396,7 @@ const Hour = styled.span`
 	color: white;
 	font-size: 1rem;
 	z-index: 999;
+
 	&::after {
 		content: "${({ hour }) => hour}";
 		position: absolute;
