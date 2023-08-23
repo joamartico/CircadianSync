@@ -6,13 +6,17 @@
     width: 100%;
 } */
 
-html, body, ion-content {
-	pointer-events: none !important;
-    overflow: hidden !important;
+html, body {
     background-color: #2c2c2e !important;
     --background: #2c2c2e !important;
+    pointer-events: none !important;
+}
+
+ion-content {
+    background-color: none !important;
+    --background: none !important;
     color: #fff !important;
-    --color: #fff !important;
+    /* --color: #737373; */
 }
 
 

@@ -28,6 +28,11 @@ const Ball = (props) => {
 				left={120 + radius * Math.cos(props.angle * (Math.PI / 180))}
 				onMouseDown={props.onDraging}
 				onTouchStart={props.onDraging}
+				onClick={() => {
+					if (props.onClick) {
+						props.onClick(props);
+					}
+				}}
 				// onClick={() => {
 				// 	if (ballRef.current) {
 				// 		const rect = ballRef.current.getBoundingClientRect();

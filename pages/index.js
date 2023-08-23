@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import Ball from "../components/Ball";
+import IonModal from "../components/IonModal";
 
 export default function Home() {
 	const [angleWake, setAngleWake] = useState(0);
 	const [angleBed, setAngleBed] = useState(240);
 	const [activeBall, setActiveBall] = useState(null);
+
+	const [selectedBall, setSelectedBall] = useState(false);
 
 	const [isDragging, setIsDragging] = useState(false);
 	const circleRef = useRef(null);
@@ -139,6 +142,7 @@ export default function Home() {
 							emoji="💪"
 							title="Testosterone and Cortisol peak"
 							description="It's a great period for physical activities like exercising, as testosterone can boost muscle growth and performance. Additionally, cortisol, our primary stress hormone, is highest in the morning, preparing us for the day's challenges."
+							onClick={(e) => setSelectedBall(e)}
 						/>
 
 						<Ball
@@ -147,6 +151,7 @@ export default function Home() {
 							emoji="🧠"
 							title="Cognitive peak"
 							description="This is when our cognitive abilities are at their peak. It's the best time for tasks that require deep concentration, problem-solving, or learning. Scientifically, our body temperature increases and so does our alertness and mental sharpness."
+							onClick={(e) => setSelectedBall(e)}
 						/>
 
 						<Ball
@@ -155,6 +160,7 @@ export default function Home() {
 							emoji="🌙"
 							title="Melatonin rise"
 							description="Melatonin, the sleep hormone, starts to rise during this period, signaling to the body that it's time to wind down and prepare for rest. Dimming lights and avoiding screens can further enhance this natural process, promoting better sleep."
+							onClick={(e) => setSelectedBall(e)}
 						/>
 
 						<Ball
@@ -163,6 +169,7 @@ export default function Home() {
 							emoji="🦴"
 							title="Growth hormone peak"
 							description="Growth hormone is released during this period, promoting tissue repair and muscle growth. It's a great time for recovery and healing. Additionally, our body temperature keeps dropping, signaling to the body that it's time to rest."
+							onClick={(e) => setSelectedBall(e)}
 						/>
 
 						<Ball
@@ -171,14 +178,16 @@ export default function Home() {
 							emoji="🌅"
 							title="Sunset"
 							description="Watching the sunset is a natural cue for our body to start transitioning from daytime to nighttime activities. It's an optimal time to begin relaxing routines and reducing exposure to blue light. Cortisol levels also start to drop, making us feel more relaxed."
+							onClick={(e) => setSelectedBall(e)}
 						/>
 
 						<Ball
-							angle={angleWake + 18}
+							angle={angleWake + 19}
 							color="#fff"
 							emoji="☀️"
 							title="Sunlight"
 							description="Exposure to natural sunlight during this period is key to synchronizing your circadian rhythm, regulating sleep patterns, and enhancing mood. The light of the morning is particularly effective in stimulating the production of serotonin, a hormone that uplifts mood."
+							onClick={(e) => setSelectedBall(e)}
 						/>
 
 						<Ball
@@ -188,6 +197,7 @@ export default function Home() {
 							emoji="❄️"
 							title="Lowest body temperature"
 							description="Our body's core temperature drops to its lowest during this time. It's a cue for deep, restorative stages of sleep. Ensuring a cool environment can further optimize sleep quality."
+							onClick={(e) => setSelectedBall(e)}
 						/>
 
 						<Ball
@@ -197,6 +207,7 @@ export default function Home() {
 							emoji="🔥"
 							title="Highest body temperature"
 							description="Your body reaches its maximum core temperature, promoting optimal muscle function and flexibility. It's a great time for physical activities or exercises as injury risks are reduced and performance can be enhanced. Additionally, metabolism is relatively high, aiding in efficient digestion."
+							onClick={(e) => setSelectedBall(e)}
 						/>
 
 						<Ball
@@ -301,6 +312,46 @@ export default function Home() {
 					</Circle>
 				</Container>
 			</ion-content>
+
+			<IonModal
+				open={selectedBall}
+				setOpen={setSelectedBall}
+				style={{
+					flexDirection: "column",
+					justifyContent: "space-between",
+					height: "100%",
+				}}
+			>
+				<ion-header translucent>
+					<ion-toolbar>
+						<ion-buttons slot="end">
+							<ion-button onClick={() => setSelectedBall(false)}>
+								Close
+							</ion-button>
+						</ion-buttons>
+					</ion-toolbar>
+				</ion-header>
+				{selectedBall && (
+					<>
+						<ion-content fullscreen >
+							{/* <ion-card> */}
+								<ion-card-header>
+									<ion-card-title style={{color: '#737373', fontSize: 30}}>
+										{fromAngleToTime(selectedBall.angle)}
+									</ion-card-title>
+									<ion-card-title style={{marginTop: 15, fontSize: 25, color: '#000'}}>
+									{selectedBall.emoji} {selectedBall.title}
+									</ion-card-title>
+								</ion-card-header>
+
+								<ion-card-content>
+									{selectedBall.description}
+								</ion-card-content>
+							{/* </ion-card> */}
+						</ion-content>
+					</>
+				)}
+			</IonModal>
 		</>
 	);
 }
@@ -315,7 +366,7 @@ const Header = styled.div`
 const Title = styled.h1`
 	font-size: 2rem;
 	font-weight: 700;
-	background: linear-gradient(#fdf5bc, #f3ac77); 
+	background: linear-gradient(#fdf5bc, #f3ac77);
 	-webkit-background-clip: text !important; // makes the text itself have the gradient
 	color: transparent !important; // necessary to make the gradient show
 `;
