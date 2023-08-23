@@ -35,7 +35,8 @@ ion-content {
 
 :root {
     /** primary **/
-    --ion-color-primary: #3880ff;
+    /* --ion-color-primary: #3880ff; */
+    --ion-color-primary: #C6A77B;
     --ion-color-primary-rgb: 2,136,209;
     --ion-color-primary-contrast: #ffffff;
     --ion-color-primary-contrast-rgb: 255,255,255;
