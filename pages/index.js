@@ -333,20 +333,28 @@ export default function Home() {
 				</ion-header>
 				{selectedBall && (
 					<>
-						<ion-content fullscreen >
+						<ion-content fullscreen>
 							{/* <ion-card> */}
-								<ion-card-header>
-									<ion-card-title style={{color: '#737373', fontSize: 30}}>
-										{fromAngleToTime(selectedBall.angle)}
-									</ion-card-title>
-									<ion-card-title style={{marginTop: 15, fontSize: 25, color: '#000'}}>
+							<ion-card-header>
+								<ion-card-title
+									style={{ color: "#737373", fontSize: 30 }}
+								>
+									{fromAngleToTime(selectedBall.angle)}
+								</ion-card-title>
+								<ion-card-title
+									style={{
+										marginTop: 15,
+										fontSize: 25,
+										color: "#000",
+									}}
+								>
 									{selectedBall.emoji} {selectedBall.title}
-									</ion-card-title>
-								</ion-card-header>
+								</ion-card-title>
+							</ion-card-header>
 
-								<ion-card-content>
-									{selectedBall.description}
-								</ion-card-content>
+							<ion-card-content style={{ fontSize: 17, lineHeight: 1.7 }}>
+								{selectedBall.description}
+							</ion-card-content>
 							{/* </ion-card> */}
 						</ion-content>
 					</>
