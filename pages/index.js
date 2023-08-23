@@ -182,7 +182,7 @@ export default function Home() {
 						/>
 
 						<Ball
-							angle={angleWake + 19}
+							angle={angleWake + 18.8}
 							color="#fff"
 							emoji="☀️"
 							title="Sunlight"
