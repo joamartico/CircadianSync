@@ -208,7 +208,7 @@ export default class MyDocument extends Document {
 						media="screen and (device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
 						href="splash_screens/8.3__iPad_Mini_portrait.png"
 					/>
-					<link rel="canonical" href="https://nutros.vercel.app/" />
+					<link rel="canonical" href="https://circadian-sync.vercel.app/" />
 					
 				</Head>
 				<body>
