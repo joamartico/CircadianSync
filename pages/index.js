@@ -101,8 +101,6 @@ export default function Home() {
 		angleWake + 90 > 359 ? angleWake - 270 : angleWake + 90;
 	let correctAngleBed = angleBed + 90 > 359 ? angleBed - 270 : angleBed + 90;
 
-	const hourToDegree = (hour) => hour * 15;
-
 	function calculateHoursOfSleep(startDegree, endDegree) {
 		if (startDegree < endDegree) {
 			return Math.abs((endDegree - startDegree) / 15);
@@ -140,8 +138,8 @@ export default function Home() {
 							angle={angleWake - 15}
 							color="#fff"
 							emoji="💪"
-							title="Testosterone and Cortisol peak"
-							description="It's a great period for physical activities like exercising, as testosterone can boost muscle growth and performance. Additionally, cortisol, our primary stress hormone, is highest in the morning, preparing us for the day's challenges."
+							title="Testosterone peak and Cortisol rise"
+							description="Around an hour before your wake-up time, your body actively prepares for the day. There's a noticeable peak in testosterone, crucial for energy, muscle development, and libido. Exercising near this peak can maximize workout benefits, optimizing muscle growth and fat burning. Concurrently, cortisol levels climb, readying you for alertness. As this occurs, your body temperature experiences a swift increase, working in tandem with these hormonal changes to facilitate a natural and energized awakening. Together, these physiological processes ensure you're primed to start the day with energy and focus."
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
@@ -150,7 +148,7 @@ export default function Home() {
 							color="#fff"
 							emoji="🧠"
 							title="Cognitive peak"
-							description="This is when our cognitive abilities are at their peak. It's the best time for tasks that require deep concentration, problem-solving, or learning. Scientifically, our body temperature increases and so does our alertness and mental sharpness."
+							description="Five hours after waking, your cognitive functions hit a peak, thanks to a convergence of physiological processes. The rise in body temperature enhances alertness and reaction time, while balanced levels of key neurotransmitters, like dopamine and serotonin, foster mental clarity and mood stability. Furthermore, the body's natural circadian rhythm boosts alertness, complemented by a low homeostatic sleep pressure. This combination sets the stage for a window of heightened focus, making it an opportune time for tasks that demand mental precision and creativity"
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
@@ -159,7 +157,7 @@ export default function Home() {
 							color="#fff"
 							emoji="🌙"
 							title="Melatonin rise"
-							description="Melatonin, the sleep hormone, starts to rise during this period, signaling to the body that it's time to wind down and prepare for rest. Dimming lights and avoiding screens can further enhance this natural process, promoting better sleep."
+							description="Around two hours before your bedtime, the production of melatonin, the 'sleep hormone', increases, prepping your body for rest. This aligns with your body's ongoing decrease in temperature. For optimal melatonin production and enhanced sleep readiness, it's best to have an environment with dim lighting and a slightly cool room temperature (around 65°F or 18°C). Avoiding screens is crucial, as the blue light they emit can interfere with melatonin production. Taking a hot shower can also aid sleep; the quick cooldown from the warmth to a cooler room further encourages the body's natural inclination towards sleep."
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
@@ -168,7 +166,7 @@ export default function Home() {
 							color="#fff"
 							emoji="🦴"
 							title="Growth hormone peak"
-							description="Growth hormone is released during this period, promoting tissue repair and muscle growth. It's a great time for recovery and healing. Additionally, our body temperature keeps dropping, signaling to the body that it's time to rest."
+							description="About two hours after bedtime, as you enter deep, non-REM sleep, there's a pronounced release of growth hormone. This deep sleep phase is particularly conducive to this hormone's secretion, making the timing crucial. Growth hormone facilitates tissue repair, muscle development, and bone health. Ensuring uninterrupted sleep during this period maximizes its benefits, promoting overall rejuvenation and vitality. Additionally, our body temperature keeps dropping, signaling to the body that it's time to rest."
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
@@ -177,16 +175,16 @@ export default function Home() {
 							color="#fff"
 							emoji="🌅"
 							title="Sunset"
-							description="Watching the sunset is a natural cue for our body to start transitioning from daytime to nighttime activities. It's an optimal time to begin relaxing routines and reducing exposure to blue light. Cortisol levels also start to drop, making us feel more relaxed."
+							description="Watching the sunset serves more than just an aesthetic purpose, it's a cue for your body. The reduction in blue light from the setting sun helps prime your eyes for nighttime, decreasing sensitivity to blue light from devices which can suppress melatonin. The warm hues of the sunset also signal a drop in cortisol levels, making you feel more relaxed and preparing your body for rest. Engaging in this simple act can aid in aligning with your natural circadian rhythm and promote better sleep."
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
 						<Ball
-							angle={angleWake + 18.8}
+							angle={angleWake + 22.5}
 							color="#fff"
 							emoji="☀️"
 							title="Sunlight"
-							description="Exposure to natural sunlight during this period is key to synchronizing your circadian rhythm, regulating sleep patterns, and enhancing mood. The light of the morning is particularly effective in stimulating the production of serotonin, a hormone that uplifts mood."
+							description={`Exposure to morning sunlight for about 20-30 minutes and before ${fromAngleToTime( angleWake + 30 )} is essential for synchronizing your circadian clock, improving sleep, and regulating your body's wakefulness. This light, rich in blue wavelengths, signals the suprachiasmatic nucleus (SCN) to inhibit melatonin secretion by the pineal gland, helping you fully awaken and raise body temperature. The SCN's activity also boosts the morning cortisol peak, aiding alertness. Additionally, sunlight spurs serotonin synthesis, boosting your mood.`}
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
@@ -196,7 +194,7 @@ export default function Home() {
 							color="#e0f1ff"
 							emoji="❄️"
 							title="Lowest body temperature"
-							description="Our body's core temperature drops to its lowest during this time. It's a cue for deep, restorative stages of sleep. Ensuring a cool environment can further optimize sleep quality."
+							description="Between two and three hours prior to your wakeup hour, your body reaches its lowest core temperature of the day. This temperature dip is intrinsically linked to your circadian rhythm, coinciding with the deepest stages of restorative sleep. Cellular repair and memory consolidation are optimized during this cool phase. As wakefulness approaches, the body begins its gradual warm-up, signaling a transition from sleep to activity. A conducive sleeping environment can further enhance this natural temperature drop, bolstering the quality of your rest."
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
@@ -206,7 +204,7 @@ export default function Home() {
 							color="#ffd0d0"
 							emoji="🔥"
 							title="Highest body temperature"
-							description="Your body reaches its maximum core temperature, promoting optimal muscle function and flexibility. It's a great time for physical activities or exercises as injury risks are reduced and performance can be enhanced. Additionally, metabolism is relatively high, aiding in efficient digestion."
+							description="About ten hours after waking, your body reaches its peak core temperature of the day, influenced by your circadian rhythm and metabolic processes. This heightened temperature promotes optimal muscle function and flexibility. Engaging in physical activities or exercises during this period is advantageous; injury risks decrease while performance potential amplifies. Moreover, your metabolism is at a relative high, supporting efficient digestion and energy utilization. After this peak, your body temperature will begin its gradual descent, preparing you for the upcoming rest phase."
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
@@ -352,7 +350,9 @@ export default function Home() {
 								</ion-card-title>
 							</ion-card-header>
 
-							<ion-card-content style={{ fontSize: 17, lineHeight: 1.7 }}>
+							<ion-card-content
+								style={{ fontSize: 17, lineHeight: 1.7 }}
+							>
 								{selectedBall.description}
 							</ion-card-content>
 							{/* </ion-card> */}
