@@ -35,7 +35,7 @@ export default class MyDocument extends Document {
 					<link rel="manifest" href="/manifest.json" />
 
 					{/* ICONS */}
-					<link rel="icon" href="/rounded.png" />
+					<link rel="icon" type="image/png" sizes="512x512" href="/splash_screens/icon.png" />
 					<link rel="apple-touch-icon" href="/full.png" />
 
 					<link
