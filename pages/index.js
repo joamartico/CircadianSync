@@ -166,7 +166,7 @@ export default function Home() {
 							color="#fff"
 							emoji="🦴"
 							title="Growth hormone peak"
-							description="About two hours after bedtime, as you enter deep, non-REM sleep, there's a pronounced release of growth hormone. This deep sleep phase is particularly conducive to this hormone's secretion, making the timing crucial. Growth hormone facilitates tissue repair, muscle development, and bone health. Ensuring uninterrupted sleep during this period maximizes its benefits, promoting overall rejuvenation and vitality. Additionally, our body temperature keeps dropping, signaling to the body that it's time to rest."
+							description="About two hours after bedtime, as you enter deep, non-REM sleep, there's a pronounced release of growth hormone. This deep sleep phase is particularly conducive to this hormone's secretion, as well as the production of testosterone, making the timing crucial. Growth hormone facilitates tissue repair, muscle development, and bone health, while testosterone plays a key role in muscle growth, bone density, and various other vital functions. Ensuring uninterrupted sleep during this period maximizes their benefits, promoting overall rejuvenation and vitality. Additionally, our body temperature keeps dropping, signaling to the body that it's time to rest."
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
