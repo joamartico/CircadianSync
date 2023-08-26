@@ -139,7 +139,7 @@ export default function Home() {
 							color="#fff"
 							emoji="💪"
 							title="Testosterone peak and Cortisol rise"
-							description="Around an hour before your wake-up time, your body actively prepares for the day. There's a noticeable peak in testosterone, crucial for energy, muscle development, and libido. Exercising near this peak can maximize workout benefits, optimizing muscle growth and fat burning. Concurrently, cortisol levels climb, readying you for alertness. As this occurs, your body temperature experiences a swift increase, working in tandem with these hormonal changes to facilitate a natural and energized awakening. Together, these physiological processes ensure you're primed to start the day with energy and focus."
+							description="During the latter parts of sleep, primarily during REM phases leading up to waking, there's a noticeable release of testosterone. This hormone is crucial for energy, muscle development, and libido. Exercising near this peak can maximize workout benefits, optimizing muscle growth and fat burning. Concurrently, cortisol levels climb, readying you for alertness. As this occurs, your body temperature experiences a swift increase, working in tandem with these hormonal changes to facilitate a natural and energized awakening. Together, these physiological processes ensure you're primed to start the day with energy and focus."
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
@@ -166,7 +166,7 @@ export default function Home() {
 							color="#fff"
 							emoji="🦴"
 							title="Growth hormone peak"
-							description="About two hours after bedtime, as you enter deep, non-REM sleep, there's a pronounced release of growth hormone. This deep sleep phase is particularly conducive to this hormone's secretion, as well as the production of testosterone, making the timing crucial. Growth hormone facilitates tissue repair, muscle development, and bone health, while testosterone plays a key role in muscle growth, bone density, and various other vital functions. Ensuring uninterrupted sleep during this period maximizes their benefits, promoting overall rejuvenation and vitality. Additionally, our body temperature keeps dropping, signaling to the body that it's time to rest."
+							description="About two hours after bedtime, as you enter deep, non-REM sleep, there's a pronounced release of growth hormone. This deep sleep phase is particularly conducive to this hormone's secretion. Growth hormone facilitates tissue repair, muscle development, and bone health. Ensuring uninterrupted sleep during this period maximizes their benefits, promoting overall rejuvenation and vitality. Additionally, our body temperature keeps dropping, signaling to the body that it's time to rest."
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
