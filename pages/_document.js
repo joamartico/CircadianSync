@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -34,8 +35,31 @@ export default class MyDocument extends Document {
 				<Head>
 					<link rel="manifest" href="/manifest.json" />
 
+					{/* GOOGLE ANALYTICS */}
+
+					<Script
+						strategy="lazyOnload"
+						src={`https://www.googletagmanager.com/gtag/js?id=G-3N0SQLDTHM`}
+					/>
+
+					<Script id="ga-script" strategy="lazyOnload">
+						{`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3N0SQLDTHM', {
+      page_path: window.location.pathname,
+    });
+        `}
+					</Script>
+
 					{/* ICONS */}
-					<link rel="icon" type="image/png" sizes="512x512" href="/splash_screens/icon.png" />
+					<link
+						rel="icon"
+						type="image/png"
+						sizes="512x512"
+						href="/splash_screens/icon.png"
+					/>
 					<link rel="apple-touch-icon" href="/full.png" />
 
 					<link
@@ -208,8 +232,10 @@ export default class MyDocument extends Document {
 						media="screen and (device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
 						href="splash_screens/8.3__iPad_Mini_portrait.png"
 					/>
-					<link rel="canonical" href="https://circadian-sync.vercel.app/" />
-					
+					<link
+						rel="canonical"
+						href="https://circadian-sync.vercel.app/"
+					/>
 				</Head>
 				<body>
 					<Main />

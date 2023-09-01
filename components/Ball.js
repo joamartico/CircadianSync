@@ -1,25 +1,8 @@
-import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const radius = 160; // 120 es la mitad del nuevo tamaño del círculo, 40 es el grosor del borde y 20 es la mitad del tamaño de la pelotita
 
 const Ball = (props) => {
-	// const [showTooltip, setshowTooltip] = useState(false);
-	// const [tooltipPosition, setTooltipPosition] = useState("above");
-
-	// const ballRef = useRef();
-	// const tooltipRef = useRef();
-
-	// useEffect(() => {
-	// 	if (ballRef.current) {
-	// 		const rect = ballRef.current.getBoundingClientRect();
-	// 		if (rect.top < tooltipRef.current.offsetHeight) {
-	// 			setTooltipPosition("below");
-	// 		} else {
-	// 			setTooltipPosition("above");
-	// 		}
-	// 	}
-	// }, [showTooltip]);
 	return (
 		<>
 			<BallContainer
@@ -33,24 +16,6 @@ const Ball = (props) => {
 						props.onClick(props);
 					}
 				}}
-				// onClick={() => {
-				// 	if (ballRef.current) {
-				// 		const rect = ballRef.current.getBoundingClientRect();
-				// 		const viewportHeight =
-				// 			window.innerHeight ||
-				// 			document.documentElement.clientHeight;
-				// 		if (rect.top - tooltipRef.current.offsetHeight < 0) {
-				// 			setTooltipPosition("below");
-				// 		} else if (
-				// 			rect.bottom + tooltipRef.current.offsetHeight >
-				// 			viewportHeight
-				// 		) {
-				// 			setTooltipPosition("above");
-				// 		}
-				// 	}
-				// 	setshowTooltip(!showTooltip);
-				// }}
-				// ref={ballRef}
 			>
 				{props.emoji}
 
@@ -58,16 +23,6 @@ const Ball = (props) => {
 					{props.title} {props.description}
 				</InvisibleSEOText>
 			</BallContainer>
-
-			{/* <Tooltip
-				ref={tooltipRef}
-				position={tooltipPosition}
-				style={{
-					visibility: showTooltip ? "visible" : "hidden",
-				}}
-			>
-				{props.description}
-			</Tooltip> */}
 		</>
 	);
 };
@@ -123,18 +78,28 @@ export const BallContainer = styled.div`
 	align-items: center;
 	background: ${({ color }) => color};
 
-	// little animation on click
-	transition: transform 0.2s ease-in-out;
 	z-index: 2;
+
 	&:active {
-		/* transform: scale(1.5); only if color different to blue */
 		transform: ${({ color }) =>
-			color === "blue" ? "scale(1)" : "scale(1.5)"};
+			color === "blue" ? "scale(1)" : "scale(1.3)"};
+		transition: transform 0.1s ease-in-out;
+		z-index: 999 !important;
 	}
 
-	&:hover ${Tooltip} {
-		visibility: visible;
-		opacity: 1;
+	transition: transform 0.1s ease-in-out;
+	@media (min-width: 768px) {
+		&:hover {
+			transform: ${({ color }) =>
+				color === "blue" ? "scale(1)" : "scale(1.4)"};
+			z-index: 999 !important;
+		}
+
+		&:active {
+			transform: ${({ color }) =>
+				color === "blue" ? "scale(1)" : "scale(0.9)"};
+			transition: transform 0.2s ease-in-out;
+		}
 	}
 `;
 
