@@ -138,7 +138,7 @@ export default function Home() {
 							angle={angleWake - 15}
 							color="#fff"
 							emoji="💪"
-							title="Testosterone peak and Cortisol rise"
+							title="Testosterone peak & Cortisol rise"
 							description="During the latter parts of sleep, primarily during REM phases leading up to waking, there's a noticeable release of testosterone. This hormone is crucial for energy, muscle development, and libido. Exercising near this peak can maximize workout benefits, optimizing muscle growth and fat burning. Concurrently, cortisol levels climb, readying you for alertness. As this occurs, your body temperature experiences a swift increase, working in tandem with these hormonal changes to facilitate a natural and energized awakening. Together, these physiological processes ensure you're primed to start the day with energy and focus."
 							onClick={(e) => setSelectedBall(e)}
 						/>
@@ -183,8 +183,10 @@ export default function Home() {
 							angle={angleWake + 22.5}
 							color="#fff"
 							emoji="☀️"
-							title="Sunlight"
-							description={`Exposure to morning sunlight for about 20-30 minutes and before ${fromAngleToTime( angleWake + 30 )} is essential for synchronizing your circadian clock, improving sleep, and regulating your body's wakefulness. This light, rich in blue wavelengths, signals the suprachiasmatic nucleus (SCN) to inhibit melatonin secretion by the pineal gland, helping you fully awaken and raise body temperature. The SCN's activity also boosts the morning cortisol peak, aiding alertness. Additionally, sunlight spurs serotonin synthesis, boosting your mood.`}
+							title="Sunlight & Cortisol peak"
+							description={`Exposure to morning sunlight for about 20-30 minutes and before ${fromAngleToTime(
+								angleWake + 30
+							)} is essential for synchronizing your circadian clock, improving sleep, and regulating your body's wakefulness. This light, rich in blue wavelengths, signals the suprachiasmatic nucleus (SCN) to inhibit melatonin production, the 'sleep hormone', helping you to fully awaken and further elevate body temperature. The SCN's activity also boosts the morning cortisol peak at this time as much as 50%, aiding alertness. This is also an optimal time for a cup of coffee, as caffeine enhances this natural cortisol boost. Additionally, sunlight spurs serotonin synthesis, boosting your mood.`}
 							onClick={(e) => setSelectedBall(e)}
 						/>
 
