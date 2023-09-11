@@ -21,6 +21,28 @@ ion-content {
     /* --color: #737373; */
 }
 
+.ion-avatar {
+    font-size: 2rem; /* Adjust the size as needed */
+    display: inline-block;
+    vertical-align: middle;
+    /* Add any other styles you want */
+  }
+
+
+
+ion-fab-button{
+	/* --background: linear-gradient(#fdf5bc, #f3ac77) !important; */
+    /* more f3ac77 % */
+    --background: linear-gradient(#fdf5bc 10%, #f3ac77 100%) !important;
+    --color: #000 !important;
+}
+
+
+  
+  ion-fab-button::part(native):hover::after {
+    background-color: unset !important;
+  }
+  
 
 /* ion-content{
     display: flex !important;
@@ -42,8 +64,8 @@ ion-content {
     --ion-color-primary-rgb: 2,136,209;
     --ion-color-primary-contrast: #ffffff;
     --ion-color-primary-contrast-rgb: 255,255,255;
-    --ion-color-primary-shade: #0278b8;
-    --ion-color-primary-tint: #1b94d6;
+    /* --ion-color-primary-shade: #0278b8;
+    --ion-color-primary-tint: #1b94d6; */
   
     /** secondary **/
     --ion-color-secondary: #0cd1e8;
@@ -113,4 +135,11 @@ ion-content {
  /* add 50px padding bottom to content */
 ion-list {
     margin-bottom: 40px !important;
+}
+
+
+
+
+ion-modal{
+    pointer-events: all;
 }

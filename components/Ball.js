@@ -1,20 +1,105 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const radius = 160; // 120 es la mitad del nuevo tamaño del círculo, 40 es el grosor del borde y 20 es la mitad del tamaño de la pelotita
 
 const Ball = (props) => {
+	const [angle, setAngle] = useState(props.angle);
+	const [isDragging, setIsDragging] = useState(false);
+	const [border, setBorder] = useState(props.withBorder ? '#0f0'  : 'unset')
+
+	useEffect(() => {
+		setAngle(props.angle);
+	}, [props.angle]);
+
+	useEffect(() => {
+		if (props.draggable) {
+			const handleTouchMove = (e) => {
+				if (isDragging) {
+					e.preventDefault(); // Prevenir el desplazamiento
+					updatePosition(e.touches[0]); // Utiliza el primer punto táctil
+				}
+			};
+
+			if (window.matchMedia("(pointer: coarse)").matches) {
+				// Detecta dispositivos táctiles
+				if (isDragging) {
+					document.addEventListener("touchmove", handleTouchMove);
+					document.addEventListener("touchend", handleMouseUp);
+				} else {
+					document.removeEventListener("touchmove", handleTouchMove);
+					document.removeEventListener("touchend", handleMouseUp);
+				}
+
+				return () => {
+					document.removeEventListener("touchmove", handleTouchMove);
+					document.removeEventListener("touchend", handleMouseUp);
+				};
+			} else {
+				// Desktop
+				if (isDragging) {
+					document.addEventListener("mousemove", handleMouseMove);
+					document.addEventListener("mouseup", handleMouseUp);
+				} else {
+					document.removeEventListener("mousemove", handleMouseMove);
+					document.removeEventListener("mouseup", handleMouseUp);
+				}
+
+				return () => {
+					document.removeEventListener("mousemove", handleMouseMove);
+					document.removeEventListener("mouseup", handleMouseUp);
+				};
+			}
+		}
+	}, [isDragging]);
+
+	const handleBallMouseDown = (e, ballId) => {
+		if (!props.draggable) return;
+		e.preventDefault();
+		setIsDragging(true);
+		updatePosition(e.type === "touchstart" ? e.touches[0] : e);
+	};
+
+	const handleMouseUp = () => {
+		setIsDragging(false);
+	};
+
+	const handleMouseMove = (e) => {
+		if (!isDragging) return;
+		updatePosition(e);
+	};
+
+	const updatePosition = (e) => {
+		if (!props.circleRef.current) return;
+		const rect = props.circleRef.current.getBoundingClientRect();
+
+		// Sumamos la mitad del grosor del borde para obtener el centro del "camino"
+		const centerX = rect.left + rect.width / 2;
+		const centerY = rect.top + rect.height / 2;
+
+		const atan = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+		const deg = (atan * (180 / Math.PI) + 360) % 360;
+		const closestAngle = Math.round(deg / 7.5) * 7.5;
+
+		setAngle(closestAngle);
+		if (props.onDragging) props.onDragging(closestAngle, setBorder);
+	};
+
 	return (
 		<>
 			<BallContainer
 				color={props.color}
-				top={120 + radius * Math.sin(props.angle * (Math.PI / 180))}
-				left={120 + radius * Math.cos(props.angle * (Math.PI / 180))}
-				onMouseDown={props.onDraging}
-				onTouchStart={props.onDraging}
+				top={120 + radius * Math.sin(angle * (Math.PI / 180))}
+				left={120 + radius * Math.cos(angle * (Math.PI / 180))}
+				onMouseDown={(e) => handleBallMouseDown(e, props.id)}
+				onTouchStart={(e) => handleBallMouseDown(e, props.id)}
 				onClick={() => {
 					if (props.onClick) {
 						props.onClick(props);
 					}
+				}}
+				style={{
+					border: `2.8px solid ${border}`,
 				}}
 			>
 				{props.emoji}
@@ -28,6 +113,7 @@ const Ball = (props) => {
 };
 
 export default Ball;
+
 export const Tooltip = styled.div`
 	visibility: hidden;
 	width: 400px; // you can adjust width as per your requirements
