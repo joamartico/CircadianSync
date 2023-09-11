@@ -99,7 +99,7 @@ const Ball = (props) => {
 					}
 				}}
 				style={{
-					border: `2.8px solid ${border}`,
+					border: `2.5px solid ${border}`,
 				}}
 			>
 				{props.emoji}
