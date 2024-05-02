@@ -13,6 +13,15 @@ export default function Home() {
 	const [showAddModal, setShowAddModal] = useState(0);
 	const [addedBalls, setAddedBalls] = useState([]);
 
+	const [currentDate, setCurrentDate] = useState(new Date());
+
+	useEffect(() => {
+		const interval = setInterval(() => setCurrentDate(new Date()), 1000);
+		return () => {
+			clearInterval(interval);
+		};
+	}, []);
+
 	const extraBalls = [
 		{
 			emoji: "☕️",
@@ -125,12 +134,10 @@ export default function Home() {
 		}
 	}
 
-	const date = new Date();
-	const hours = date.getHours();
-	const minutes = date.getMinutes();
-	const seconds = date.getSeconds();
-	const totalSeconds = hours * 60 * 60 + minutes * 60 + seconds;
-	const hourAngle = (totalSeconds / 86400) * 360;
+	const hours = currentDate?.getHours();
+	const minutes = currentDate?.getMinutes();
+	const totalMinutes = hours * 60 + minutes;
+	const hourAngle = (totalMinutes / (24 * 60)) * 360;
 
 	return (
 		<>
