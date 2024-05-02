@@ -362,6 +362,18 @@ export default function Home() {
 							>
 								12
 							</span>
+							<img
+								src="/clock.png"
+								style={{
+									position: "absolute",
+									width: "calc(100% + 10px)",
+									height: "100%",
+									left: -1,
+									top: 0.2,
+									borderRadius: "50%",
+									transform: 'scale(1.03)',
+								}}
+							/>
 						</InnerCircle>
 					</Circle>
 				</Container>
