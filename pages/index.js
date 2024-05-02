@@ -372,6 +372,7 @@ export default function Home() {
 									top: 0.2,
 									borderRadius: "50%",
 									transform: 'scale(1.03)',
+									pointerEvents: 'none'
 								}}
 							/>
 						</InnerCircle>
