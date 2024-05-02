@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import Ball from "../components/Ball";
 import IonModal from "../components/IonModal";
+import Hand from "../components/Hand";
 
 export default function Home() {
 	const [angleWake, setAngleWake] = useState(0);
@@ -123,6 +124,13 @@ export default function Home() {
 			return Math.abs((360 - startDegree + endDegree) / 15);
 		}
 	}
+
+	const date = new Date();
+	const hours = date.getHours();
+	const minutes = date.getMinutes();
+	const seconds = date.getSeconds();
+	const totalSeconds = hours * 60 * 60 + minutes * 60 + seconds;
+	const hourAngle = (totalSeconds / 86400) * 360;
 
 	return (
 		<>
@@ -371,10 +379,13 @@ export default function Home() {
 									left: -1,
 									top: 0.2,
 									borderRadius: "50%",
-									transform: 'scale(1.03)',
-									pointerEvents: 'none'
+									transform: "scale(1.03)",
+									pointerEvents: "none",
 								}}
 							/>
+
+							<Hand angle={hourAngle} />
+							<ClockCenter />
 						</InnerCircle>
 					</Circle>
 				</Container>
@@ -607,4 +618,27 @@ const EmojiAvatar = styled.span`
 	display: inline-block;
 	vertical-align: middle;
 	/* Add any other styles you want */
+`;
+
+const ClockCenter = styled.div`
+	height: 10px;
+	width: 10px;
+	background-color: #fff;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	&::after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 5px;
+		height: 5px;
+		background-color: #000;
+		border-radius: 50%;
+	}
 `;
