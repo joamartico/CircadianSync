@@ -13,13 +13,15 @@ export default function Home() {
 	const [showAddModal, setShowAddModal] = useState(0);
 	const [addedBalls, setAddedBalls] = useState([]);
 
-	const [currentDate, setCurrentDate] = useState(new Date());
+	const [hourAngle, setHourAngle] = useState(0);
 
 	useEffect(() => {
-		const interval = setInterval(() => setCurrentDate(new Date()), 1000);
-		return () => {
-			clearInterval(interval);
-		};
+		const currentDate = new Date();
+		const hours = currentDate?.getHours();
+		const minutes = currentDate?.getMinutes();
+		const totalMinutes = hours * 60 + minutes;
+		const _hourAngle = (totalMinutes / (24 * 60)) * 360;
+		setHourAngle(_hourAngle);
 	}, []);
 
 	const extraBalls = [
@@ -133,11 +135,6 @@ export default function Home() {
 			return Math.abs((360 - startDegree + endDegree) / 15);
 		}
 	}
-
-	const hours = currentDate?.getHours();
-	const minutes = currentDate?.getMinutes();
-	const totalMinutes = hours * 60 + minutes;
-	const hourAngle = (totalMinutes / (24 * 60)) * 360;
 
 	return (
 		<>
