@@ -31,16 +31,19 @@ function MyApp({ Component, pageProps }) {
 			<Head>
 				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 				{/* SEO  */}
-				<title>Circadian Sync</title>
+				<title>Circadian Watch</title>
 				<meta
 					name="description"
-					content="Optimize your body's natural circadian rhythm with Circadian Sync. Boost energy, sleep better, and elevate productivity. Align with nature. Sync with success."
+					content="Optimize your body's natural circadian rhythm with Circadian Watch. Boost energy, sleep better, and elevate productivity. Align with nature. Sync with success."
 				/>
 				<meta
 					name="keywords"
-					content="circadian rhythm, boost energy, sleep optimization, productivity, natural alignment, Circadian Sync, wellness, health optimization, sleep improvement, energy enhancement"
+					content="circadian rhythm, boost energy, sleep optimization, productivity, natural alignment, Circadian Watch, wellness, health optimization, sleep improvement, energy enhancement"
 				/>
-				<meta name="google-site-verification" content="3XoSVdS7QLQWutddbE1sJ60XT3mFR-WXrP80V4AharU" />
+				<meta
+					name="google-site-verification"
+					content="3XoSVdS7QLQWutddbE1sJ60XT3mFR-WXrP80V4AharU"
+				/>
 
 				{/*  PWA  */}
 				<meta

@@ -234,7 +234,7 @@ export default class MyDocument extends Document {
 					/>
 					<link
 						rel="canonical"
-						href="https://circadian-sync.vercel.app/"
+						href="https://circadian-watch.vercel.app/"
 					/>
 				</Head>
 				<body>

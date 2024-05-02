@@ -140,7 +140,7 @@ export default function Home() {
 		<>
 			<ion-content>
 				<Header>
-					<Title>Circadian Sync</Title>
+					<Title>Circadian Watch</Title>
 					<p>Bedtime: {fromAngleToTime(angleBed)}</p>
 					<p>Wake up: {fromAngleToTime(angleWake)}</p>
 					{/* <p>

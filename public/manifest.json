@@ -3,8 +3,8 @@
     "background_color": "#2c2c2e",
     "display": "standalone",
     "start_url": ".",
-    "name": "CircadianSync",
-    "short_name": "CircadianSync",
+    "name": "Circadian Watch",
+    "short_name": "Circadian Watch",
     "icons": [
         {
           "src": "/splash_screens/icon.png",
