@@ -3,10 +3,19 @@ import styled from "styled-components";
 import Ball from "../components/Ball";
 import IonModal from "../components/IonModal";
 import Hand from "../components/Hand";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function Home() {
-	const [angleWake, setAngleWake] = useState(0);
-	const [angleBed, setAngleBed] = useState(240);
+	// const [angleWake, setAngleWake] = useState(0);
+	// const [angleBed, setAngleBed] = useState(240);
+
+	const [angleWake, setAngleWake] = useLocalStorage("angleWake", 0);
+	console.log("angleWake", angleWake);
+	const [angleBed, setAngleBed] = useLocalStorage("angleBed", 240);
+
+	const [correctAngleBed, setCorrectAngleBed] = useState(0);
+	const [correctAngleWake, setCorrectAngleWake] = useState(0);
+
 	const circleRef = useRef(null);
 
 	const [selectedBall, setSelectedBall] = useState(false);
@@ -124,9 +133,14 @@ export default function Home() {
 		return `${hours}:${minutes < 10 ? "0" + minutes : minutes}`;
 	}
 
-	let correctAngleWake =
-		angleWake + 90 > 359 ? angleWake - 270 : angleWake + 90;
-	let correctAngleBed = angleBed + 90 > 359 ? angleBed - 270 : angleBed + 90;
+	useEffect(() => {
+		let _correctAngleWake =
+			angleWake + 90 > 359 ? angleWake - 270 : angleWake + 90;
+		let _correctAngleBed =
+			angleBed + 90 > 359 ? angleBed - 270 : angleBed + 90;
+		setCorrectAngleWake(_correctAngleWake);
+		setCorrectAngleBed(_correctAngleBed);
+	}, [angleWake, angleBed]);
 
 	function calculateHoursOfSleep(startDegree, endDegree) {
 		if (startDegree < endDegree) {
@@ -244,7 +258,7 @@ export default function Home() {
 						/>
 
 						<Ball
-							angle={240}
+							angle={angleBed}
 							onDragging={(newAngle) => {
 								setAngleBed(newAngle);
 							}}
@@ -255,7 +269,7 @@ export default function Home() {
 						/>
 
 						<Ball
-							angle={0}
+							angle={angleWake}
 							onDragging={(newAngle) => {
 								setAngleWake(newAngle);
 							}}

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const radius = 160; // 120 es la mitad del nuevo tamaño del círculo, 40 es el grosor del borde y 20 es la mitad del tamaño de la pelotita
 
 const Ball = (props) => {
-	const [angle, setAngle] = useState(props.angle);
+	const [angle, setAngle] = useState();
 	const [isDragging, setIsDragging] = useState(false);
 	const [border, setBorder] = useState(props.withBorder ? '#0f0'  : 'unset')
 
